@@ -24,6 +24,9 @@ function loadMyPdfs() {
     //     addTheDocumentToDashboard(obj);
     //   })})
     // });
+
+
+    // this is an example of data
     data = [{
       'id':12,
       'version': '1.2',
@@ -103,8 +106,9 @@ function addTheDocumentToDashboard(obj){
   doc_container.appendChild(label_modification);
   doc_container.appendChild(div_modification);
   doc_container.appendChild(actions_container);
+  col_md_div.appendChild(doc_container);
 
-  dropZone.appendChild(doc_container);
+  dropZone.appendChild(col_md_div);
 
 }
 
