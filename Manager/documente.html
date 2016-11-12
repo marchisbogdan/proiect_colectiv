@@ -60,14 +60,45 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-        <div id="page-wrapper">
+        <div id="page-wrapper" style="margin-top:100px">
+          <button id="pdfLoader" type="button" name="Load pdfs">Load</button>
+          <div class="row" id="documentZone">
+            <div class="col-md-3">
+              <div class="doc-container" id="doc11" style="font-size:18px">
+                <img class="img-thumbnail" src="" alt="a img" style="width:100%"/>
+
+                <span class="label label-info">Status</span>
+                <div class="doc-info doc-status">status</div>
+
+                <span class="label label-info">Author</span>
+                <div class="doc-info doc-author">author</div>
+
+                <span class="label label-info">Creation Date</span>
+                <div class="doc-info doc-creation-date">creation date</div>
+
+                <span class="label label-info">Modification Date</span>
+                <div class="doc-info doc-modification-date">modification date</div>
+
+                <div class="actions-container">
+                  <button class="btn btn-primary btn-sm" type="button" name="download">Download</button>
+                  <label class="btn btn-primary btn-sm btn-file">
+                    Upload <input type="file" style="display: none;" accept="application/pdf">
+                  </label>
+                  <button class="btn btn-danger btn-sm" type="button" name="delete">Delete</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
            <div class="row">
                <div class="col-lg-12 col-md-12">
                    <h3 class="text-center"><label class="label label-info"> Documente </label></h3>
+
                </div>
            </div>
         </div>
         <!-- /#page-wrapper -->
     </div>
+    <script src="Scripts/documente.js"></script>
 </body>
 </html>
