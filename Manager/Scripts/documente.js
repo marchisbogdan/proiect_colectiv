@@ -5,7 +5,85 @@ let documentMap = new Map();
   // detach the events on element deletion
   let button = document.getElementById("pdfLoader");
   button.addEventListener('click',loadMyPdfs);
+  let form_button = document.getElementById('form-button');
+  form_button.addEventListener('click',sendCreatedFile);
 })();
+
+function snackBar(text){
+  alert("hi");
+  let x = document.getElementById('snackBar');
+
+  x.className = "show";
+  x.innerText = text ? text : "Missing text";
+
+  setTimeout(()=>{
+    x.className = x.className.replace("show","");
+  }, 3000);
+}
+
+function checkFormFilds() {
+  let description = document.getElementById('description-input');
+  let keys_input = document.getElementById('keys-input');
+  let file_input = document.getElementById('file-input');
+  let ok = 1;
+  if (description.value === null || description.value === "") {
+    let parent = description.parentNode;
+    parent.className += " has-error";
+    let help = document.getElementById('helpBlock1');
+    help.innerText = "Please add a description.";
+    ok=0;
+  }else{
+    description.parentNode.className = "form-group";
+    let help = document.getElementById('helpBlock1');
+    help.innerText = "";
+  }
+  if (keys_input.value === null || keys_input.value === "") {
+    let parent = keys_input.parentNode;
+    parent.className += " has-warning";
+    ok=0;
+  }else{
+    keys_input.parentNode.className = "form-group";
+  }
+  if (file_input.files.length === 0) {
+    let parent = file_input.parentNode.parentNode;
+    parent.className += " has-error";
+    let help = document.getElementById('helpBlock2');
+    help.innerText = "Please add a file.";
+    ok=0;
+  }else{
+    if(file_input.files[0].type === "application/pdf" || file_input.files[0].type === "application/msword"){
+
+    }
+    file_input.parentNode.parentNode.className = "form-group";
+    let help = document.getElementById('helpBlock2');
+    help.innerText = "";
+  }
+  return ok === 1;
+}
+
+function sendCreatedFile(){
+  if(checkFormFilds() === true){
+    let description = document.getElementById('description-input');
+    let keys_input = document.getElementById('keys-input');
+    let file_input = document.getElementById('file-input');
+
+    let formData = new FormData();
+    formData.append("description",description.val);
+    formData.append("key_words",keys_input.val);
+    formData.append("file",file_input.files[0], file_input.files[0].name);
+
+    let request = new XMLHttpRequest();
+    request.open("POST","localhost:8080//addDoc.php");
+    request.onload = () => {
+      if(request.status == 200){
+        alert("Uploaded!");
+      }else{
+        alert("Error!");
+      }
+    };
+    request.send(formData);
+  }
+}
 
   /**
    * GET :- an img of the pdf - OPTIONAL : BLOB // Something representative

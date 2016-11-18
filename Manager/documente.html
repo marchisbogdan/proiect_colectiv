@@ -6,16 +6,7 @@
     <script src="Scripts/bootstrap.js"></script>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/dashboard.css" rel="stylesheet" />
-    <style>
-        h3{
-            margin-top:20%;
-        }
-        .document{
-          margin:5px;
-          padding: 10px;
-          border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="Content/style.css" />
 </head>
 
 <body>
@@ -77,8 +68,27 @@
               </div>
               <div id="form_collapse" class="panel-collapse collapse">
                 <div class="panel-body">
-                  <form id="create_doc_form" class="" action="index.html" method="post">
-
+                  <form id="create_doc_form" class="">
+                    <div class="form-group">
+                      <label for="description-input">Descriere</label>
+                      <input id="description-input" class="form-control" type="text" name="description" area-describedby="helpBlock1" value="">
+                      <span id="helpBlock1" class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="keys-input">Cuvinte Cheie</label>
+                      <textarea id="keys-input" class="form-control" rows="3"></textarea>
+                      <p class="help-block">
+                        Dati cateva cuvinte cheie pentru a facilita o mai buna clasificare a documentului.
+                      </p>
+                    </div>
+                    <div class="form-group">
+                      <label for="file-input">File Input</label>
+                      <label class="btn btn-default btn-sm btn-file" area-describedby="helpBlock2">
+                        Upload <input id="file-input" type="file" style="display: none;" accept="">
+                      </label>
+                      <span id="helpBlock2" class="help-block"></span>
+                    </div>
+                    <button id="form-button" type="button" class="btn btn-default" name="button">Submit</button>
                   </form>
                 </div>
               </div>
@@ -171,6 +181,8 @@
            </div>
         </div>
         <!-- /#page-wrapper -->
+    </div>
+    <div id="snackBar">Text
     </div>
     <script src="Scripts/documente.js"></script>
 </body>
