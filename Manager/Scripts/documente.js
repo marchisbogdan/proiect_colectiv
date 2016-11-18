@@ -36,6 +36,15 @@ function loadMyPdfs() {
       'modificationDate':'2/3/2011',
       'keyWords':['a doc','ubb'],
       'description':'a simple doc.'
+    },{
+      'id':11234,
+      'version': '1.2',
+      'status': 'Final',
+      'author': 'tom',
+      'creationDate':'1/1/2010',
+      'modificationDate':'2/3/2012',
+      'keyWords':['a doc','ubb'],
+      'description':'a simple doc.'
     }];
       data.map((object) => {saveDocumentProperties(object,(obj)=>{
         addTheDocumentToDashboard(obj);
@@ -66,9 +75,9 @@ function loadMyPdfs() {
 
 function addTheDocumentToDashboard(obj){
   let dropZone = document.getElementById('documentZone');
-  let col_md_div = createTag("DIV",['col-md-3']);
-  let doc_container = createTag("DIV",['doc-container'],{'id':obj.id});
-  let thumbnail = createTag("IMG",['img-thumbnail'], {'src':"",'alt':'a img'});
+  let col_md_div = createTag("DIV",['col-md-3','document']);
+  let doc_container = createTag("DIV",['doc-container'],{'id':obj.id,'style':'font-size:18px'});
+  let thumbnail = createTag("IMG",['img-thumbnail'], {'src':"",'alt':'a img','style':'width:100%'});
 
   let label_status = createTag("SPAN",['label','label-info'],{},"Status");
   let div_status = createTag("DIV",["doc-info doc-status"],{},obj.status);

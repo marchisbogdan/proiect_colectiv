@@ -10,6 +10,11 @@
         h3{
             margin-top:20%;
         }
+        .document{
+          margin:5px;
+          padding: 10px;
+          border: 1px solid black;
+        }
     </style>
 </head>
 
@@ -61,33 +66,101 @@
             <!-- /.navbar-collapse -->
         </nav>
         <div id="page-wrapper" style="margin-top:100px">
-          <button id="pdfLoader" type="button" name="Load pdfs">Load</button>
-          <div class="row" id="documentZone">
-            <div class="col-md-3">
-              <div class="doc-container" id="doc11" style="font-size:18px">
-                <img class="img-thumbnail" src="" alt="a img" style="width:100%"/>
+          <div id="accordion"class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#form_collapse">
+                    1.Create Document
+                  </a>
+                </h4>
+              </div>
+              <div id="form_collapse" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <form id="create_doc_form" class="" action="index.html" method="post">
 
-                <span class="label label-info">Status</span>
-                <div class="doc-info doc-status">status</div>
-
-                <span class="label label-info">Author</span>
-                <div class="doc-info doc-author">author</div>
-
-                <span class="label label-info">Creation Date</span>
-                <div class="doc-info doc-creation-date">creation date</div>
-
-                <span class="label label-info">Modification Date</span>
-                <div class="doc-info doc-modification-date">modification date</div>
-
-                <div class="actions-container">
-                  <button class="btn btn-primary btn-sm" type="button" name="download">Download</button>
-                  <label class="btn btn-primary btn-sm btn-file">
-                    Upload <input type="file" style="display: none;" accept="application/pdf">
-                  </label>
-                  <button class="btn btn-danger btn-sm" type="button" name="delete">Delete</button>
+                  </form>
                 </div>
               </div>
             </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#drafts_collapse">
+                    2.Drafts
+                  </a>
+                </h4>
+              </div>
+              <div id="drafts_collapse" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <button id="pdfLoader" type="button" name="Load pdfs">Load</button>
+                  <div class="row" id="documentZone">
+                    <div class="col-md-3">
+                      <div class="doc-container" id="doc11" style="font-size:18px">
+                        <img class="img-thumbnail" src="" alt="a img" style="width:100%"/>
+
+                        <span class="label label-info">Status</span>
+                        <div class="doc-info doc-status">status</div>
+
+                        <span class="label label-info">Author</span>
+                        <div class="doc-info doc-author">author</div>
+
+                        <span class="label label-info">Creation Date</span>
+                        <div class="doc-info doc-creation-date">creation date</div>
+
+                        <span class="label label-info">Modification Date</span>
+                        <div class="doc-info doc-modification-date">modification date</div>
+
+                        <div class="actions-container">
+                          <button class="btn btn-primary btn-sm" type="button" name="download">Download</button>
+                          <label class="btn btn-primary btn-sm btn-file">
+                            Upload <input type="file" style="display: none;" accept="application/pdf">
+                          </label>
+                          <button class="btn btn-danger btn-sm" type="button" name="delete">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#final_collapse">
+                    3.Final
+                  </a>
+                </h4>
+              </div>
+              <div id="final_collapse" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="">
+                    final zone
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#blocked_collapse">
+                    4.Blocked
+                  </a>
+                </h4>
+              </div>
+              <div id="blocked_collapse" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="">
+                    blocked zone
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="create_doc_form">
 
           </div>
            <div class="row">
