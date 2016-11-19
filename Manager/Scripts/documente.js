@@ -1,4 +1,9 @@
-let getPdfsURL = "/getPDFs";
+const getPdfsURL = "/getPDFs";
+// TODO: change the URLs to the proper paths
+const downloadDocURL = "localhost:8080//download.php";
+const uploadDocURL = "localhost:8080//upload.php";
+const deleteDocURL = "localhost:8080//delete.php";
+
 let documentMap = new Map();
 (() => {
   // attach the functions to the buttons
@@ -6,7 +11,7 @@ let documentMap = new Map();
   let button = document.getElementById("pdfLoader");
   button.addEventListener('click',loadMyPdfs);
   let form_button = document.getElementById('form-button');
-  form_button.addEventListener('click',sendCreatedFile);
+  form_button.addEventListener('click',() => { sendCreatedFile(event)});
 })();
 
 function snackBar(text){
@@ -61,7 +66,7 @@ function checkFormFilds() {
   return ok === 1;
 }
 
-function sendCreatedFile(){
+function sendCreatedFile(event){
   if(checkFormFilds() === true){
     let description = document.getElementById('description-input');
     let keys_input = document.getElementById('keys-input');
@@ -151,10 +156,76 @@ function loadMyPdfs() {
     callback(object);
   }
 
+function fileDownloadEvent(event,obj) {
+  alert("Started download from :"+ downloadDocURL + "?id=" + obj.id);
+  //window.open(downloadDocURL + "?id=" + obj.id, '_blank');
+  window.location= downloadDocURL + "?id=" + obj.id;
+}
+
+function fileUploadEvent(event,obj,input){
+  if(input.files[0].type === "application/pdf" || input.files[0].type === "application/msword"){
+    let formData = new FormData();
+    formData.append("id",obj.id);
+    formData.append("file",input.files[0],input.files[0].name);
+
+    let request = new XMLHttpRequest();
+    request.open("POST",uploadDocURL);
+    request.onload = () => {
+      if(request.status == 200){
+        alert("Uploaded!");
+      }else{
+        alert("Error!");
+      }
+    };
+    request.send(formData);
+  }else{
+    alert("The file must be .pdf or .msword!");
+  }
+}
+
+function fileDeleteEvent(event, obj, ...buttons) {
+  // delete the file first
+  let formData = new FormData();
+  formData.append("id",obj.id);
+  alert("started deleting");
+
+  let arr = buttons;
+  console.log(arr);
+  for (let node of arr) {
+    // removes all the event listeners by coning the node and replacing it
+    let new_elem = node.cloneNode(true);
+    node.parentNode.replaceChild(new_elem,node);
+    console.log("removing node event for:"+node);
+  }
+  // delete the node and his elements
+  let element_to_delete = "#"+obj.id.toString();
+  console.log(element_to_delete);
+  $(element_to_delete).remove();
+  alert("Deleted!");
+
+  let request = new XMLHttpRequest();
+  request.open("POST",deleteDocURL);
+  request.onload = () => {
+    if(request.status == 200){
+      let arr = buttons[0];
+      for (let node of arr) {
+        // removes all the event listeners by coning the node and replacing it
+        let new_elem = node.cloneNode(true);
+        node.parentNode.replaceChild(new_elem,node);
+      }
+      // delete the node and his elements
+      $(obj.id).empty();
+      alert("Deleted!");
+    }else{
+      alert("Error!");
+    }
+  };
+}
+
 function addTheDocumentToDashboard(obj){
   let dropZone = document.getElementById('documentZone');
-  let col_md_div = createTag("DIV",['col-md-3','document']);
-  let doc_container = createTag("DIV",['doc-container'],{'id':obj.id,'style':'font-size:18px'});
+  let col_md_div = createTag("DIV",['col-md-3','document'],{'id':obj.id});
+  let doc_container = createTag("DIV",['doc-container'],{'style':'font-size:18px'});
   let thumbnail = createTag("IMG",['img-thumbnail'], {'src':"",'alt':'a img','style':'width:100%'});
 
   let label_status = createTag("SPAN",['label','label-info'],{},"Status");
@@ -177,6 +248,11 @@ function addTheDocumentToDashboard(obj){
   let upload_input = createTag("INPUT",[],{'type':'file','style':'display:none;','accept':'application/pdf'},'');
 
   let delete_btn = createTag("BUTTON",['btn','btn-danger','btn-sm'],{'type':'button','name':'delete'},'Delete');
+
+  // adding the events for the buttons.
+  download_btn.addEventListener('click', () => { fileDownloadEvent(event,obj);});
+  upload_input.addEventListener('change', () => { fileUploadEvent(event,obj,upload_input);});
+  delete_btn.addEventListener('click', () => { fileDeleteEvent(event,obj,download_btn,upload_input,delete_btn);});
 
   upload_label.appendChild(upload_input);
   actions_container.appendChild(download_btn);
